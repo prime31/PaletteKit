@@ -10,14 +10,14 @@ namespace Prime31.PaletteKit
 	[Serializable]
 	public class Palettes : ScriptableObject
 	{
-		internal List<ColorPalette> _colorPalettes;
+		public List<ColorPalette> colorPalettes;
 		private int _currentPaletteIndex = -1;
 
 
 		public void OnEnable()
 		{
-			if( _colorPalettes == null )
-				_colorPalettes = new List<ColorPalette>();
+			if( colorPalettes == null )
+				colorPalettes = new List<ColorPalette>();
 		}
 
 
@@ -25,11 +25,11 @@ namespace Prime31.PaletteKit
 		{
 			var removeAtIndex = -1;
 
-			for( var i = 0; i < _colorPalettes.Count; i++ )
+			for( var i = 0; i < colorPalettes.Count; i++ )
 			{
 				GUILayout.BeginHorizontal();
 				{
-					GUILayout.Label( _colorPalettes[i].paletteName, GUILayout.Width( 60 ) );
+					GUILayout.Label( colorPalettes[i].paletteName, GUILayout.Width( 60 ) );
 
 					if( GUILayout.Button( "Delete" ) )
 						removeAtIndex = i;
@@ -38,7 +38,7 @@ namespace Prime31.PaletteKit
 						_currentPaletteIndex = i;
 
 					if( GUILayout.Button( "Load" ) )
-						PaletteChooserWindow.setColors( _colorPalettes[i]._colors );
+						PaletteChooserWindow.setColors( colorPalettes[i]._colors );
 				}
 				GUILayout.EndHorizontal();
 			}
@@ -47,14 +47,14 @@ namespace Prime31.PaletteKit
 			if( removeAtIndex >= 0 )
 			{
 				Undo.RecordObject( this, "Removing ColorPalette" );
-				var currentlySelectedPalette = _currentPaletteIndex >= 0 && _currentPaletteIndex != removeAtIndex ? _colorPalettes[_currentPaletteIndex] : null;
-				UnityEngine.Object.DestroyImmediate( _colorPalettes[removeAtIndex], true );
+				var currentlySelectedPalette = _currentPaletteIndex >= 0 && _currentPaletteIndex != removeAtIndex ? colorPalettes[_currentPaletteIndex] : null;
+				UnityEngine.Object.DestroyImmediate( colorPalettes[removeAtIndex], true );
 				AssetDatabase.SaveAssets();
-				_colorPalettes.RemoveAt( removeAtIndex );
+				colorPalettes.RemoveAt( removeAtIndex );
 				removeAtIndex = -1;
 
 				if( currentlySelectedPalette != null )
-					_currentPaletteIndex = _colorPalettes.IndexOf( currentlySelectedPalette );
+					_currentPaletteIndex = colorPalettes.IndexOf( currentlySelectedPalette );
 			}
 
 
@@ -63,10 +63,10 @@ namespace Prime31.PaletteKit
 				GUILayout.Space( 30 );
 
 				// ensure we stay in bounds in case of undo
-				if( _colorPalettes.Count < _currentPaletteIndex + 1 )
+				if( colorPalettes.Count < _currentPaletteIndex + 1 )
 					_currentPaletteIndex = -1;
 				else
-					_colorPalettes[_currentPaletteIndex].OnGUI();
+					colorPalettes[_currentPaletteIndex].OnGUI();
 			}
 
 			GUILayout.Space( 30 );
@@ -78,8 +78,8 @@ namespace Prime31.PaletteKit
 				Undo.RecordObject( this, "Adding ColorPalette" );
 				var p = CreateInstance<ColorPalette>();
 				p.paletteName = "New Palette";
-				_colorPalettes.Add( p );
-				_currentPaletteIndex = _colorPalettes.Count - 1;
+				colorPalettes.Add( p );
+				_currentPaletteIndex = colorPalettes.Count - 1;
 				AssetDatabase.AddObjectToAsset( p, this );
 			}
 
@@ -102,14 +102,14 @@ namespace Prime31.PaletteKit
 						var p = CreateInstance<ColorPalette>();
 						p._colors.Clear();
 						p.paletteName = System.IO.Path.GetFileNameWithoutExtension( path );
-						_colorPalettes.Add( p );
+						colorPalettes.Add( p );
 
 						// add in our colors
 						for( var i = 0; i < colors.Count; i++ )
 							p._colors.Add( colors[i] );
 
 						p.recalculateHexCodes();
-						_currentPaletteIndex = _colorPalettes.Count - 1;
+						_currentPaletteIndex = colorPalettes.Count - 1;
 						AssetDatabase.AddObjectToAsset( p, this );
 					}
 				}
