@@ -24,15 +24,19 @@ namespace Prime31.PaletteKit
 
 		public void OnEnable()
 		{
+			hideFlags = HideFlags.HideAndDontSave;
 			_windowRect = loadRectFromPrefs( _windowRect );
 		}
 
 
 		public void OnDisable()
 		{
+			// OnDisable gets called a lot for some reason. we only need to persist once
+			if( _texture )
+				saveRectToPrefs( _windowRect );
+
 			Editor.DestroyImmediate( _texture );
 			_texture = null;
-			saveRectToPrefs( _windowRect );
 		}
 
 
@@ -62,9 +66,14 @@ namespace Prime31.PaletteKit
 					var clickedTexY = _totalRows - 1 - Mathf.FloorToInt( clickPosInTexture.y / _scale );
 					var clickedColor = _texture.GetPixel( clickedTexX, clickedTexY );
 
-					Debug.Log( "chosen color: " + clickedColor );
 					// PROBUILDER REFERENCE
-					//pb_VertexColorInterface.SetFaceColors( clickedColor );
+					var pbType = System.Type.GetType( "pb_VertexColorInterface, ProBuilderEditor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" );
+					if( pbType != null )
+					{
+						var pbMethod = pbType.GetMethod( "SetFaceColors", new System.Type[] { typeof( Color32 ) } );
+						if( pbMethod != null )
+							pbMethod.Invoke( null, new object[] { (Color32)clickedColor } );
+					}
 				}
 
 				GUI.DrawTexture( textureRect, _texture );
@@ -94,6 +103,7 @@ namespace Prime31.PaletteKit
 			var tex = new Texture2D( itemsPerRow, _totalRows, TextureFormat.RGB24, false, true );
 			tex.filterMode = FilterMode.Point;
 			tex.wrapMode = TextureWrapMode.Clamp;
+			tex.hideFlags = HideFlags.HideAndDontSave;
 
 			for( var i = 0; i < colors.Count; i++ )
 			{

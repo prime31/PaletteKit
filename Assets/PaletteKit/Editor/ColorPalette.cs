@@ -14,7 +14,7 @@ namespace Prime31.PaletteKit
 		public string paletteName;
 
 		[SerializeField]
-		public List<Color> _colors;
+		public List<Color> colors;
 		private List<string> _hexCodes = new List<string>();
 
 
@@ -37,8 +37,8 @@ namespace Prime31.PaletteKit
 		public void recalculateHexCodes()
 		{
 			_hexCodes.Clear();
-			for( var i = 0; i < _colors.Count; i++ )
-				_hexCodes.Add( colorToHex( _colors[i] ) );
+			for( var i = 0; i < colors.Count; i++ )
+				_hexCodes.Add( colorToHex( colors[i] ) );
 		}
 
 
@@ -49,9 +49,9 @@ namespace Prime31.PaletteKit
 			{
 				paletteName = "New Palette";
 
-				_colors = new List<Color>( 5 );
+				colors = new List<Color>( 5 );
 				for( var i = 0; i < 5; i++ )
-					_colors.Add( new Color( UnityEngine.Random.Range( 0f, 1f ), UnityEngine.Random.Range( 0f, 1f ), UnityEngine.Random.Range( 0f, 1f ) ) );
+					colors.Add( new Color( UnityEngine.Random.Range( 0f, 1f ), UnityEngine.Random.Range( 0f, 1f ), UnityEngine.Random.Range( 0f, 1f ) ) );
 			}
 
 			recalculateHexCodes();
@@ -64,7 +64,7 @@ namespace Prime31.PaletteKit
 			var requiresColorPaletteUpdate = false;
 			var removeColorAtIndex = -1;
 
-			for( var i = 0; i < _colors.Count; i++ )
+			for( var i = 0; i < colors.Count; i++ )
 			{
 				GUILayout.BeginHorizontal();
 				{
@@ -78,14 +78,14 @@ namespace Prime31.PaletteKit
 
 						if( _hexCodes[i].Length == 6 )
 						{
-							_colors[i] = hexToColor( _hexCodes[i] );
+							colors[i] = hexToColor( _hexCodes[i] );
 							requiresColorPaletteUpdate = true;
 						}
 					}
 
 
 					EditorGUI.BeginChangeCheck();
-					_colors[i] = EditorGUILayout.ColorField( _colors[i], GUILayout.ExpandWidth( true ) );
+					colors[i] = EditorGUILayout.ColorField( colors[i], GUILayout.ExpandWidth( true ) );
 
 					if( GUILayout.Button( "x" ) )
 					{
@@ -95,7 +95,7 @@ namespace Prime31.PaletteKit
 
 					if( EditorGUI.EndChangeCheck() )
 					{
-						_hexCodes[i] = colorToHex( _colors[i] );
+						_hexCodes[i] = colorToHex( colors[i] );
 						requiresColorPaletteUpdate = true;
 					}
 				}
@@ -104,19 +104,19 @@ namespace Prime31.PaletteKit
 
 			if( GUILayout.Button( "Add Color to Palette" ) )
 			{
-				_colors.Add( Color.white );
+				colors.Add( Color.white );
 				_hexCodes.Add( "FFFFFF" );
 				requiresColorPaletteUpdate = true;
 			}
 
 			if( removeColorAtIndex >= 0 )
 			{
-				_colors.RemoveAt( removeColorAtIndex );
+				colors.RemoveAt( removeColorAtIndex );
 				_hexCodes.RemoveAt( removeColorAtIndex );
 			}
 
 			if( requiresColorPaletteUpdate )
-				PaletteChooserWindow.setColors( _colors );
+				PaletteChooserWindow.setColors( colors );
 
 			if( GUI.changed )
 				Undo.RecordObject( this, "ColorPalette Modified" );

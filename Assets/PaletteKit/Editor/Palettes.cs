@@ -16,6 +16,7 @@ namespace Prime31.PaletteKit
 
 		public void OnEnable()
 		{
+			//hideFlags = HideFlags.HideAndDontSave;
 			if( colorPalettes == null )
 				colorPalettes = new List<ColorPalette>();
 		}
@@ -38,7 +39,7 @@ namespace Prime31.PaletteKit
 						_currentPaletteIndex = i;
 
 					if( GUILayout.Button( "Load" ) )
-						PaletteChooserWindow.setColors( colorPalettes[i]._colors );
+						PaletteChooserWindow.setColors( colorPalettes[i].colors );
 				}
 				GUILayout.EndHorizontal();
 			}
@@ -100,13 +101,13 @@ namespace Prime31.PaletteKit
 					{
 						Undo.RecordObject( this, "Adding ColorPalette" );
 						var p = CreateInstance<ColorPalette>();
-						p._colors.Clear();
+						p.colors.Clear();
 						p.paletteName = System.IO.Path.GetFileNameWithoutExtension( path );
 						colorPalettes.Add( p );
 
 						// add in our colors
 						for( var i = 0; i < colors.Count; i++ )
-							p._colors.Add( colors[i] );
+							p.colors.Add( colors[i] );
 
 						p.recalculateHexCodes();
 						_currentPaletteIndex = colorPalettes.Count - 1;

@@ -47,7 +47,7 @@ namespace Prime31.PaletteKit
 
 				// if we have some palettes load up the first one
 				if( _palettes.colorPalettes.Count > 0 )
-					_paletteWindow.setColors( _palettes.colorPalettes[0]._colors );
+					_paletteWindow.setColors( _palettes.colorPalettes[0].colors );
 			}
 
 			SceneView.onSceneGUIDelegate += onSceneView;
@@ -62,7 +62,7 @@ namespace Prime31.PaletteKit
 
 		void onSceneView( SceneView sv )
 		{
-			// PROBUILDER REFERENCE: this makes it so the scene view palette window is only visible when Geometry + Face selection is active
+			// PROBUILDER REFERENCE
 			// we only need to show this if we are in face editing mode
 			//if( pb_Editor.instanceIfExists.editLevel == ProBuilder2.EditorEnum.EditLevel.Geometry
 			//	&& pb_Editor.instanceIfExists.GetSelectionMode() == ProBuilder2.EditorEnum.SelectMode.Face )
