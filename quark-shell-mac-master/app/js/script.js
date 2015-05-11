@@ -87,7 +87,12 @@ $( '#popupMenu' ).delegate( 'a', 'click', function()
 			blockModel.addColorsNearBlock( selectedBlock, selectedBlock.getColor().analogous() );
 		break;
 		case 'monochromatic': // 6
-			blockModel.addColorsNearBlock( selectedBlock, selectedBlock.getColor().monochromatic() );
+		{
+			var colors = selectedBlock.getColor().monochromatic();
+			colors.shift();
+			colors.reverse();
+			blockModel.addColorsNearBlock( selectedBlock, colors );
+		}
 		break;
 		case 'splitcomplement': // 3
 			blockModel.addColorsNearBlock( selectedBlock, selectedBlock.getColor().splitcomplement() );
@@ -269,20 +274,23 @@ $( document ).keydown( function( e )
 });
 
 
-quark.setSecondaryClickAction( function()
+if( typeof( quark ) != 'undefined' )
 {
-  quark.showMenu({
-				 items: [
-						 {label: "Cancel", click: function() { quark.openPopup() } },
-						 {label: "Pin", click: function() { quark.pin(); quark.openPopup(); } },
-						 {label: "Unpin", click: function() { quark.unpin(); quark.openPopup(); } },
-						 {type: "separator"},
-						 {label: "Quit", click: function() { quark.quit(); } }
-						 ],
-				 x: 160,
-				 y: 0
-				 });
-} );
+	quark.setSecondaryClickAction( function()
+	{
+		quark.showMenu({
+			 items: [
+					 {label: "Cancel", click: function() { quark.openPopup() } },
+					 {label: "Pin", click: function() { quark.pin(); quark.openPopup(); } },
+					 {label: "Unpin", click: function() { quark.unpin(); quark.openPopup(); } },
+					 {type: "separator"},
+					 {label: "Quit", click: function() { quark.quit(); } }
+					 ],
+			 x: 160,
+			 y: 0
+			 });
+	} );
+}
 
 
 $( document ).ready( function()

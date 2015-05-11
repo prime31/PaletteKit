@@ -183,6 +183,10 @@ BlockModel.prototype.setBackgroundColor = function( color )
 
 BlockModel.prototype.addColorsNearBlock = function( block, colors )
 {
+	var blockColor = block.getColor();
+	if( tinycolor.equals( blockColor, colors[0] ) )
+		colors.shift();
+	
     var colorsAdded = 0;
     
     // add as many as we can right, then left
