@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title></title>
+    <link rel="stylesheet" href="css/style.css"></link>
+    <link rel="stylesheet" href="css/colorpicker.css" />
+    <link rel="stylesheet" href="css/dropit.css" />
+</head>
+<body class="noselect">
+
+    <ul id="popupMenu" class="dropit-submenu">
+        <li><a href="#" data-method="complement">Complement</a></li>
+        <li><a href="#" data-method="tetrad">Tetrad</a></li>
+        <li><a href="#" data-method="triad">Triad</a></li>
+        <li><a href="#" data-method="analogous">Analogous</a></li>
+        <li><a href="#" data-method="monochromatic">Monochromatic</a></li>
+        <li><a href="#" data-method="splitcomplement">Split Complements</a></li>
+        <li><hr /></li>
+        <li><a href="#" data-method="lighten">Lighten (L)</a></li>
+        <li><a href="#" data-method="brighten">Brighten (B)</a></li>
+        <li><a href="#" data-method="darken">Darken (D)</a></li>
+        <li><a href="#" data-method="saturate">Saturate (S)</a></li>
+        <li><a href="#" data-method="desaturate">Desaturate (E)</a></li>
+        <li><a href="#" data-method="spin">Hue Spin (H)</a></li>
+    </ul>
+
+
+    <div id="leftColumn">
+        <div id="help">
+            <h3>Keyboard Shortcuts</h3>
+            <ul>
+                <li><b>Up/Down arrow:</b> blend from selected color to the next set color above or below</li>
+                <li><b>Left:</b> generates shadow gravitating towards the shadow color set in options</li>
+                <li><b>Right:</b> generates highlight gravitating towards the highlight color set in options</li>
+                <li><b>T:</b> brings up a menu for quick actions to take on the selected block</li>
+                <li><b>L:</b> lightens the current color</li>
+                <li><b>B:</b> brightens the current color</li>
+                <li><b>D:</b> darkens the current color</li>
+                <li><b>S:</b> saturates the current color</li>
+                <li><b>E:</b> desaturates the current color</li>
+                <li><b>H:</b> shifts the hue by 10 for the current color</li>
+            </ul>
+            <p>
+                Color blending with the up/down arrow requires that you select a color and that there is another color somewhere
+                above or below the selected color. It will blend from one to the other filling in all the blocks in between.
+            </p>
+            <p>
+                If you press the "Show Options" button you can select the background color and the shadow/highlight color that
+                is used when pressing right/left to generate shadows and highlights.
+            </p>
+        </div>
+        
+        <div id="root"></div>
+        <div id="picker" class="noselect"></div>
+            
+        <div id="options"> 
+            <div class="colorSelectorPanel">
+                <div id="bgColorSelector" class="colorSelector">
+                    <div></div>
+                </div>
+                <h3>Background Color</h3>
+            </div>
+            
+            <div class="colorSelectorPanel clear">
+                <div id="shadowColorSelector" class="colorSelector">
+                    <div></div>
+                </div>
+                <h3>Shadow Magnet Hue</h3>
+            </div>
+            
+            <div class="colorSelectorPanel clear">
+                <div id="highlightColorSelector" class="colorSelector">
+                    <div></div>
+                </div>
+                <h3>Highlight Magnet Hue</h3>
+            </div>
+        </div>
+            
+        <button id="clearPaletteBtn">Clear Palette</button><button id="optionsBtn">Show Options</button>
+    </div>
+
+
+    <script src="js/jquery-latest.min.js"></script>
+    <script src="js/colorpicker.js"></script>
+    <script src="js/tinycolor.js"></script>
+    <script src="js/jquery.blockUI.js"></script>
+    <script src="js/block.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

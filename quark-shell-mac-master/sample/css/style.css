@@ -1,0 +1,120 @@
+body {
+	margin: 0;
+	padding: 5px;
+	box-sizing: border-box;
+  background-color: #333;
+  color: #fff;
+}
+
+
+button {
+  border: 1px solid black;
+  width: 48.5%;
+  height: 30px;
+}
+
+
+.clear {
+  clear: both;
+}
+
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+#help {
+  display: none;
+  background-color: rgba( 52, 52, 52, 0.85 );
+  z-index: 9999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 100%;
+}
+
+#help h3 {
+  text-align: center;
+}
+
+#help p {
+  padding: 10px 30px;
+}
+
+#root {
+	width: 400px;
+	height: 400px;
+	float: left;
+  box-sizing: border-box;
+}
+
+
+#leftColumn {
+  float: left;
+}
+
+#rightColumn {
+  float: left;
+}
+
+
+#picker {
+  padding-left: 14px;
+  margin-bottom: 10px;
+}
+
+
+#options {
+  display: none;
+  height: 177px;
+  width: 389px;
+  clear: both;
+  box-sizing: border-box;
+  margin-bottom: 9px;
+  padding: 35px 0 0 50px;
+  background-color: #474747;
+}
+
+div.block {
+	box-sizing: border-box;
+	float: left;
+  margin: 1px 1px 0 0;
+}
+
+
+div.block.selected {
+	border: 2px solid #000;
+}
+
+
+div.colorSelectorPanel h3 {
+  float: left;
+  margin: 8px 8px 8px 20px;
+}
+
+div.colorSelectorPanel div {
+  float: left;
+}
+
+div.colorSelector {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  background: url(../images/select.png);
+}
+
+div.colorSelector div {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 30px;
+  height: 30px;
+  background: url(../images/select.png) center;
+}
