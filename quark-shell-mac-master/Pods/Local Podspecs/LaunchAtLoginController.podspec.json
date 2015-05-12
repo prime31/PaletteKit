@@ -1,0 +1,20 @@
+{
+  "name": "LaunchAtLoginController",
+  "version": "1.0.0",
+  "summary": "A simple controller for Objective-C apps to register for launch at login using LSSharedFileList.",
+  "homepage": "https://github.com/jashephe/LaunchAtLoginController",
+  "license": "MIT",
+  "authors": [
+    "Ben Clark-Robinson",
+    "James Shepherdson"
+  ],
+  "platforms": {
+    "osx": null
+  },
+  "source": {
+    "git": "https://github.com/jashephe/LaunchAtLoginController.git",
+    "tag": "v1.0.0"
+  },
+  "source_files": "*.{h,m}",
+  "requires_arc": true
+}
