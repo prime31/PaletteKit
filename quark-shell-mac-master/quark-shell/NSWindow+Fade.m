@@ -1,6 +1,6 @@
 //
 //  NSWindow+Fade.m
-//  quark-shell
+
 //
 //  Courtesy to @indragiek: https://gist.github.com/indragiek/1397050
 //

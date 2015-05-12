@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="css/dropit.css" />
 </head>
 <body class="noselect">
-
+	<audio id="negativeSound" src="negative.wav"></audio>
+	
+	
     <ul id="popupMenu" class="dropit-submenu">
         <li><a href="#" data-method="complement">Complement</a></li>
         <li><a href="#" data-method="tetrad">Tetrad</a></li>
@@ -33,13 +35,17 @@
                 <li><b>Up/Down arrow:</b> blend from selected color to the next set color above or below</li>
                 <li><b>Left:</b> generates shadow gravitating towards the shadow color set in options</li>
                 <li><b>Right:</b> generates highlight gravitating towards the highlight color set in options</li>
-                <li><b>T:</b> brings up a menu for quick actions to take on the selected block</li>
-                <li><b>L:</b> lightens the current color</li>
-                <li><b>B:</b> brightens the current color</li>
-                <li><b>D:</b> darkens the current color</li>
-                <li><b>S:</b> saturates the current color</li>
-                <li><b>E:</b> desaturates the current color</li>
-                <li><b>H:</b> shifts the hue by 10 for the current color</li>
+                <li><b>t:</b> brings up a menu for quick actions to take on the selected block</li>
+                <li><b>l:</b> lightens the current color</li>
+                <li><b>b:</b> brightens the current color</li>
+                <li><b>d:</b> darkens the current color</li>
+                <li><b>s:</b> saturates the current color</li>
+                <li><b>e:</b> desaturates the current color</li>
+                <li><b>h:</b> shifts the hue by 10 for the current color</li>
+				<li><b>c:</b> copy the selected color</li>
+				<li><b>v:</b> paste the copied color</li>
+				<li><b>delete:</b> deletes the selected color</li>
+				<li><b>q:</b> shows the menu with options to quit, pin and unpin Palette Mate</li>
             </ul>
             <p>
                 Color blending with the up/down arrow requires that you select a color and that there is another color somewhere

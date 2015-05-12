@@ -1,6 +1,6 @@
 //
 //  QSHStatusItemView.m
-//  quark-shell
+
 //
 //  Created by Xhacker Liu on 5/1/14.
 //  Copyright (c) 2014 Xhacker. All rights reserved.

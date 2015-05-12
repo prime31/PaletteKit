@@ -1,6 +1,6 @@
 //
 //  QSHNewWindowController.m
-//  quark-shell
+
 //
 //  Created by Xhacker Liu on 7/2/14.
 //  Copyright (c) 2014 Xhacker. All rights reserved.

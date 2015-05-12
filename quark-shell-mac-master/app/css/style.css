@@ -39,6 +39,7 @@ button {
   left: 0;
   width: 400px;
   height: 100%;
+  font-size: 120%;
 }
 
 #help h3 {

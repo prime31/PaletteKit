@@ -5,6 +5,7 @@ var blockModel = new BlockModel( $( '#root' ), width, height );
 var selectedBlock = blockModel.centerBlock();
 var shadowMagnetColor = null;
 var highlightMagnetColor = null;
+var pasteboardColor = null;
 
 
 function selectBlock( block )
@@ -126,8 +127,9 @@ function hidePopupMenu()
 
 
 // ##### ##### ##### ##### #####
-// ## popup menu
+// ## help
 // ##### ##### ##### ##### #####
+
 $( '#help' ).bind( 'click', hideHelp );
 function showHelp()
 {
@@ -142,30 +144,11 @@ function hideHelp()
 	$( '#help' ).fadeOut( 100 );
 }
 
-// killed the zooming feature
-//$( document ).ready( function()
-//{
-//    $( '#root' ).bind( 'wheel mousewheel', function( e )
-//	{
-//        var delta;
-//        if( e.originalEvent.wheelDelta !== undefined )
-//            delta = e.originalEvent.wheelDelta;
-//        else
-//            delta = e.originalEvent.deltaY * -1;
-//
-//        if( delta > 0 )
-//		{
-//			$( '#root' ).css( 'width', '+=10' );
-//			$( '#root' ).css( 'height', '+=10' );
-//		}
-//        else
-//		{
-//			$( '#root' ).css( 'width', '-=10' );
-//			$( '#root' ).css( 'height', '-=10' );
-//		}
-//    });
-//});
 
+
+// ##### ##### ##### ##### #####
+// ## keyboard shortcuts
+// ##### ##### ##### ##### #####
 
 $( document ).keydown( function( e )
 {
@@ -197,8 +180,7 @@ $( document ).keydown( function( e )
 		break
 
 		case 191: // question mark
-			if( e.shiftKey )
-				showHelp();
+			showHelp();
 		break;
 
 		case 84: // t
@@ -260,6 +242,40 @@ $( document ).keydown( function( e )
 				forceUpdateBlock = true;
 			}
 		break;
+		
+		case 67: // c
+			if( selectedBlock )
+				pasteboardColor = selectedBlock.getColor();
+		break;
+	
+		case 86: // v
+			if( selectedBlock && pasteboardColor )
+			{
+				selectedBlock.setColor( pasteboardColor );
+				forceUpdateBlock = true;
+			}
+		break;
+					  
+		case 81: // q
+		{
+			if( typeof( quark ) == 'undefined' )
+				return;
+
+			quark.showMenu
+			({
+				items: [
+					{ label: "Cancel", click: function() {} },
+					{ label: "Pin", click: function() { quark.pin(); } },
+					{ label: "Unpin", click: function() { quark.unpin(); } },
+					{ label: 'Save pal File', click: function() { generatePalFile() } },
+					{ type: "separator"},
+					{ label: "Quit", click: function() { quark.quit(); } }
+				],
+				x: 160,
+				y: 130
+			});
+		}
+		break;
 
         default:
 			//console.log(e.which)
@@ -274,24 +290,10 @@ $( document ).keydown( function( e )
 });
 
 
-if( typeof( quark ) != 'undefined' )
-{
-	quark.setSecondaryClickAction( function()
-	{
-		quark.showMenu({
-			 items: [
-					 {label: "Cancel", click: function() { quark.openPopup() } },
-					 {label: "Pin", click: function() { quark.pin(); quark.openPopup(); } },
-					 {label: "Unpin", click: function() { quark.unpin(); quark.openPopup(); } },
-					 {type: "separator"},
-					 {label: "Quit", click: function() { quark.quit(); } }
-					 ],
-			 x: 160,
-			 y: 0
-			 });
-	} );
-}
 
+// ##### ##### ##### ##### #####
+// ## button handlers and options color pickers
+// ##### ##### ##### ##### #####
 
 $( document ).ready( function()
 {
@@ -351,3 +353,38 @@ $( document ).ready( function()
 	}
 });
 
+
+
+// ##### ##### ##### ##### #####
+// ## palette file downloads
+// ##### ##### ##### ##### #####
+
+function generatePalFile()
+{
+	var colors = blockModel.getColorsInJascFormat();
+	var data = 'JASC-PAL\r\n0100\r\n' + colors.length + '\r\n';
+	data += colors.join( '\r\n' );
+	
+	if( typeof( quark ) != 'undefined' )
+		quark.saveStringToFile( data, 'palette.pal' );
+	else
+		download( 'palette.pal', data );
+}
+
+function download( filename, text )
+{
+    var pom = document.createElement('a');
+    pom.setAttribute( 'href', 'data:text/plain;charset=utf-8,' + encodeURIComponent( text ) );
+    pom.setAttribute( 'download', filename );
+	
+    if( document.createEvent )
+	{
+        var event = document.createEvent( 'MouseEvents' );
+        event.initEvent( 'click', true, true );
+        pom.dispatchEvent( event );
+    }
+    else
+	{
+        pom.click();
+    }
+}

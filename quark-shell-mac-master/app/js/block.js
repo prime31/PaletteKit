@@ -125,6 +125,10 @@ BlockModel.prototype.tryFillVertical = function( block, y )
             b.setColor( tinycolor.mix( startColor, endColor, 100 * i / stepOffset ) );
         }
     }
+	else
+	{
+		$( '#negativeSound' )[0].play()
+	}
 };
 
 BlockModel.prototype.tryShadow = function( block )
@@ -222,7 +226,10 @@ BlockModel.prototype.addColorsNearBlock = function( block, colors )
     }
     
     if( colors.length > 0 )
+	{
+		$( '#negativeSound' )[0].play()
         alert( 'Ran out of room adding the colors around the selected color. There were ' + colors.length + ' colors that were not added.' );
+	}
 };
 
 BlockModel.prototype.tryAddColorsInLine = function( block, colors )
@@ -237,4 +244,23 @@ BlockModel.prototype.tryAddColorsInLine = function( block, colors )
         steps++;
         newY += y;
     }
+};
+
+BlockModel.prototype.getColorsInJascFormat = function()
+{
+	var colors = [];
+    for( var i = 0; i < width; i++ )
+    {
+        for( var j = 0; j < height; j++ )
+        {
+            var b = this.blocks[i][j];
+            if( b.hasColor() )
+            {
+				var rgb = b.getColor().toRgb();
+				colors.push( rgb.r + ' ' + rgb.g + ' ' + rgb.b );
+			}
+        }
+    }
+	
+	return colors;
 };

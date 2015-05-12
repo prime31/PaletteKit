@@ -1,6 +1,6 @@
 //
 //  QSHWebViewDelegate.m
-//  quark-shell
+
 //
 //  Created by Xhacker Liu on 3/31/14.
 //  Copyright (c) 2014 Xhacker. All rights reserved.
@@ -91,7 +91,9 @@ static const NSInteger kPreferencesDefaultHeight = 192;
         selector == @selector(checkUpdateInBackground:) ||
         selector == @selector(emitMessage:withPayload:) ||
         selector == @selector(subscribeMessage:withCallback:) ||
-        selector == @selector(showMenu:)) {
+		selector == @selector(saveString:toFile:) ||
+        selector == @selector(showMenu:))
+	{
         return NO;
     }
 
@@ -141,6 +143,9 @@ static const NSInteger kPreferencesDefaultHeight = 192;
     else if (selector == @selector(emitMessage:withPayload:)) {
         result = @"emit";
     }
+	else if (selector == @selector(saveString:toFile:)) {
+		result = @"saveStringToFile";
+	}
     else if (selector == @selector(subscribeMessage:withCallback:)) {
         result = @"on";
     }
@@ -166,6 +171,14 @@ static const NSInteger kPreferencesDefaultHeight = 192;
 }
 
 #pragma mark - Methods for JavaScript
+
+- (void)saveString:(NSString*)str toFile:(NSString*)filename
+{
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES );
+	NSString* theDesktopPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:filename];
+	
+	[str writeToFile:theDesktopPath atomically:NO encoding:NSUTF8StringEncoding error:nil];
+}
 
 - (void)openPopup
 {

@@ -1,6 +1,6 @@
 //
 //  QSHWebScriptObjectConverter.m
-//  quark-shell
+
 //
 //  Created by Xhacker Liu on 6/14/14.
 //  Copyright (c) 2014 Xhacker. All rights reserved.
